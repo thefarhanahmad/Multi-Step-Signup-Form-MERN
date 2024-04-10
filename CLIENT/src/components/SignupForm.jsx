@@ -9,6 +9,7 @@ import { setToken } from "../store/slices/authSlice";
 const SignupForm = () => {
   // state management
   const [loading, setLoading] = useState(false);
+  const [errorText, setErrorText] = useState("");
   const {
     register,
     handleSubmit,
@@ -47,32 +48,32 @@ const SignupForm = () => {
     } catch (error) {
       setLoading(false);
       console.error("Error signing up:", error);
-      toast.error(error.response.data.message);
+      setErrorText(error.response.data.message);
     }
   };
 
   return (
     <div>
-      <div className="min-h-screen bg-[#ffe5b4] flex">
-        <div className="w-1/2 flex flex-col justify-center items-center p-12">
-          <h1 className="text-6xl font-bold text-[#ea4c89] mb-4">dribbble</h1>
-          <p className="text-2xl text-gray-700 mb-8">
+      <div className="min-h-screen bg-[#ffe5b4] flex w-full">
+        {/* left side image */}
+        <div className="w-[40%] flex flex-col  items-center sm:items-start p-12">
+          <h1 className="text-2xl font-bold text-[#be8a2a] mb-4">dribbble</h1>
+          <p className="text-xl font-semibold text-[#835e1b]  mb-8">
             Discover the world’s top Designers & Creatives.
           </p>
-          <img
-            alt="Art by Peter Tarka"
-            className="max-w-xs"
-            height="400"
-            src="/placeholder.svg"
-            style={{
-              aspectRatio: "600/400",
-              objectFit: "cover",
-            }}
-            width="600"
-          />
+          <div className=" overflow-hidden w-full h-[400px] ">
+            <img
+              alt="Art by Peter Tarka"
+              className="max-w-xs object-cover w-full"
+              src="SignImage.png"
+            />
+          </div>
+
           <p className="text-sm text-gray-500 mt-4">Art by Peter Tarka</p>
         </div>
-        <div className="w-1/2 bg-white p-12">
+
+        {/* right side form */}
+        <div className="w-[60%] bg-white p-16">
           <div className="flex justify-end">
             <p className="text-sm text-gray-600">
               Already a member?{" "}
@@ -81,25 +82,54 @@ const SignupForm = () => {
               </a>
             </p>
           </div>
-          <div className="mt-8">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="mt-8 flex flex-col  items-start"
+          >
             <h2 className="text-4xl font-bold mb-6">Sign up to Dribbble</h2>
             <p className="text-sm text-red-500 mb-1">
-              Username has already been taken
+              {errorText && <span>{errorText}</span>}
             </p>
-            <label
-              className="block text-sm font-medium text-gray-700"
-              htmlFor="username"
-            >
-              Name
-            </label>
-            <input
-              aria-invalid="true"
-              className="border border-red-300 rounded-md w-full mb-4 p-2 text-gray-700"
-              id="username"
-              name="username"
-              placeholder="John"
-              type="text"
-            />
+            <div className="flex gap-3">
+              <div className="flex flex-col items-start">
+                <label
+                  className="block text-sm font-medium text-gray-700"
+                  htmlFor="name"
+                >
+                  Name
+                </label>
+                <input
+                  aria-invalid="true"
+                  className="border border-gray-300 outline-none rounded-md w-full mb-4 p-2 text-gray-700"
+                  id="name"
+                  name="name"
+                  placeholder="John"
+                  type="text"
+                  {...register("name", {
+                    required: "Please enter your name.",
+                  })}
+                />
+              </div>
+              <div className="flex flex-col items-start">
+                <label
+                  className="block text-sm font-medium text-gray-700"
+                  htmlFor="username"
+                >
+                  Username
+                </label>
+                <input
+                  aria-invalid="true"
+                  className="border border-gray-300 outline-none rounded-md w-full mb-4 p-2 text-gray-700"
+                  id="username"
+                  name="username"
+                  placeholder="smith"
+                  type="text"
+                  {...register("username", {
+                    required: "Please enter your username.",
+                  })}
+                />
+              </div>
+            </div>
             <label
               className="block text-sm font-medium text-gray-700"
               htmlFor="email"
@@ -107,11 +137,14 @@ const SignupForm = () => {
               Email
             </label>
             <input
-              className="border border-gray-300 rounded-md w-full mb-4 p-2 text-gray-700"
+              className="border border-gray-300 outline-none rounded-md w-3/4 mb-4 p-2 text-gray-700"
               id="email"
               name="email"
               placeholder="account@refero.design"
               type="email"
+              {...register("email", {
+                required: "Please enter your email.",
+              })}
             />
             <label
               className="block text-sm font-medium text-gray-700"
@@ -120,20 +153,23 @@ const SignupForm = () => {
               Password
             </label>
             <input
-              className="border border-gray-300 rounded-md w-full mb-4 p-2 text-gray-700"
+              className="border border-gray-300 outline-none rounded-md w-3/4 mb-4 p-2 text-gray-700"
               id="password"
               name="password"
               placeholder="6+ characters"
               type="password"
+              {...register("password", {
+                required: "Please enter password.",
+              })}
             />
             <div className="flex items-center mb-6">
               <input
-                className="rounded text-[#ea4c89] border-gray-300 focus:ring-[#ea4c89]"
+                className="rounded text-[#ea4c89] border-gray-300 outline-none focus:ring-[#ea4c89]"
                 id="terms"
                 type="checkbox"
               />
               <label
-                className="ml-2 block text-sm text-gray-600"
+                className="ml-2 block text-start text-sm text-gray-600"
                 htmlFor="terms"
               >
                 Creating an account means you’re okay with our{" "}
@@ -151,7 +187,7 @@ const SignupForm = () => {
                 .
               </label>
             </div>
-            <button className="bg-[#ea4c89] text-white rounded-md w-full py-3 font-medium">
+            <button className="bg-[#ea4c89] w-fit text-white rounded-md py-3 px-6 font-medium">
               Create Account
             </button>
             <p className="text-xs text-gray-400 mt-4">
@@ -165,7 +201,7 @@ const SignupForm = () => {
               </a>{" "}
               apply.
             </p>
-          </div>
+          </form>
         </div>
       </div>
     </div>

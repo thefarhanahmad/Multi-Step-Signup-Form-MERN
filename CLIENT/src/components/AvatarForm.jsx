@@ -13,7 +13,6 @@ const AvatarForm = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -30,10 +29,12 @@ const AvatarForm = () => {
     e.preventDefault();
     console.log("Avatar:", avatar);
     console.log("Location:", location);
+
     try {
       if (token) {
         localStorage.setItem("avatar", avatar);
         localStorage.setItem("location", location);
+
         dispatch(nextStep());
       }
     } catch (error) {

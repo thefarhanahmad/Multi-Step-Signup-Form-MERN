@@ -10,13 +10,13 @@ import { useEffect } from "react";
 import { setUser } from "./store/slices/authSlice";
 
 function App() {
-  const { user, step, token,avatar } = useSelector((state) => state.auth);
+  const { user, step, token, avatar } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  console.log("user : ", user);
-  console.log("step : ", step);
-  console.log("token : ", token);
-  console.log("avatar : ", avatar);
+  // console.log("user : ", user);
+  // console.log("step : ", step);
+  // console.log("token : ", token);
+  // console.log("avatar : ", avatar);
 
   // calling function to get loggedin user
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -42,7 +42,7 @@ function App() {
   return (
     <div className="text-center w-full bg-red-400">
       {/* navbar */}
-      <Navbar />
+      {/* {user && token && avatar && <Navbar />} */}
 
       {/* routes */}
       <Routes>

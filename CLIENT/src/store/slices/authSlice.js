@@ -2,9 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const data = {
   token: localStorage.getItem("JWTtoken") || null,
-  step: 2,
+  step: 1,
   user: null,
-  avatar:localStorage.getItem("avatar") || null
+  avatar: localStorage.getItem("avatar") || null,
 };
 
 const authSlice = createSlice({
@@ -29,7 +29,9 @@ const authSlice = createSlice({
     prevStep: (state, action) => {
       state.step -= 1;
     },
-   
+    setAvatarImg: (state, action) => {
+      state.avatar = action.payload;
+    },
   },
 });
 
@@ -40,6 +42,7 @@ export const {
   removeUser,
   nextStep,
   prevStep,
+  setAvatarImg,
 } = authSlice.actions;
 
 export default authSlice.reducer;
