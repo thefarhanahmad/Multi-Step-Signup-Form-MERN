@@ -22,7 +22,7 @@ const SignupForm = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const onSubmit = async (data) => {
-    console.log("Form Data :", data);
+    // console.log("Form Data :", data);
     try {
       setLoading(true);
       const response = await axios.post(`${apiUrl}/signup`, data, {

@@ -20,8 +20,7 @@ app.use(
 );
 app.use(
   cors({
-    origin: "https://multi-step-signup-form.netlify.app/",
-    // origin: "http://localhost:5173",
+    origin: "https://multi-step-signup-form.netlify.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     aallowedHeaders: ["Authorization", "Content-Type"],
     credentials: true,
