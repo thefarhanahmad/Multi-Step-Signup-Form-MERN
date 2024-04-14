@@ -42,7 +42,7 @@ const SignupForm = () => {
           email: "",
           password: "",
         });
-        navigate("/profile");
+        navigate("/create-profile");
       }
       setLoading(false);
     } catch (error) {
@@ -54,14 +54,16 @@ const SignupForm = () => {
 
   return (
     <div>
-      <div className="min-h-screen bg-[#ffe5b4] flex w-full">
+      <div className=" bg-[#ffe5b4] flex flex-col sm:flex-row w-full">
         {/* left side image */}
-        <div className="w-[40%] flex flex-col  items-center sm:items-start p-12">
-          <h1 className="text-2xl font-bold text-[#be8a2a] mb-4">dribbble</h1>
+        <div className="sm:w-[40%] w-full justify-center flex flex-col mx-auto items-center sm:items-start p-12">
+          <h1 className="text-2xl font-bold text-[#be8a2a] mb-4 font-serif">
+            dribbble
+          </h1>
           <p className="text-xl font-semibold text-[#835e1b]  mb-8">
             Discover the world’s top Designers & Creatives.
           </p>
-          <div className=" overflow-hidden w-full h-[400px] ">
+          <div className=" overflow-hidden w-full sm:h-[330px] ">
             <img
               alt="Art by Peter Tarka"
               className="max-w-xs object-cover w-full"
@@ -73,7 +75,7 @@ const SignupForm = () => {
         </div>
 
         {/* right side form */}
-        <div className="w-[60%] bg-white p-16">
+        <div className="sm:w-[60%] bg-white w-full p-16">
           <div className="flex justify-end">
             <p className="text-sm text-gray-600">
               Already a member?{" "}
@@ -162,9 +164,9 @@ const SignupForm = () => {
                 required: "Please enter password.",
               })}
             />
-            <div className="flex items-center mb-6">
+            <div className="flex items-start pt-1 mb-6">
               <input
-                className="rounded text-[#ea4c89] border-gray-300 outline-none focus:ring-[#ea4c89]"
+                className="rounded text-[#ea4c89] mt-2 border-gray-300 outline-none focus:ring-[#ea4c89]"
                 id="terms"
                 type="checkbox"
               />

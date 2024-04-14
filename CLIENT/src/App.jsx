@@ -1,13 +1,14 @@
 import "./App.css";
-import Navbar from "./components/Navbar";
+
 import { Routes, Route } from "react-router-dom";
 import SignUp from "./pages/SignUp";
 
 import { useDispatch, useSelector } from "react-redux";
-import Profile from "./pages/Profile";
+import CreateProfile from "./pages/CreateProfile";
 import axios from "axios";
 import { useEffect } from "react";
-import { setUser } from "./store/slices/authSlice";
+import { setAvatarImg, setUser } from "./store/slices/authSlice";
+import Profile from "./pages/Profile";
 
 function App() {
   const { user, step, token, avatar } = useSelector((state) => state.auth);
@@ -29,7 +30,8 @@ function App() {
         },
       });
       dispatch(setUser(res.data.user));
-      console.log("loggedin user : ", res);
+      dispatch(setAvatarImg(localStorage.getItem("avatar")));
+      // console.log("loggedin user : ", res);
     } catch (error) {
       console.log("error to fetch user profile : ", error);
     }
@@ -40,13 +42,11 @@ function App() {
   }, [token]);
 
   return (
-    <div className="text-center w-full bg-red-400">
-      {/* navbar */}
-      {/* {user && token && avatar && <Navbar />} */}
-
+    <div className="text-center w-full ">
       {/* routes */}
       <Routes>
         <Route exact path="/" element={<SignUp />} />
+        <Route path="/create-profile" element={<CreateProfile />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
     </div>

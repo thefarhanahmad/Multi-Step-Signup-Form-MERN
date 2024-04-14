@@ -1,17 +1,29 @@
 import React from "react";
-import AvatarForm from "../components/AvatarForm";
-import BioSelect from "../components/BioSelect";
-
 import { useDispatch, useSelector } from "react-redux";
+import Navbar from "../components/Navbar";
+import VerifyMail from "../components/VerifyMail";
+import Footer from "../components/Footer";
 
 const Profile = () => {
-  const { step } = useSelector((state) => state.auth);
+  const { user, step, token, avatar } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  // console.log("user : ", user);
+  // console.log("step : ", step);
+  // console.log("token : ", token);
+  // console.log("avatar : ", avatar);
 
-  console.log("step in bio: ", step);
+
   return (
     <div>
-      {step == 1 && <AvatarForm />}
-      {step == 2 && <BioSelect />}
+      {/* navbar */}
+      <Navbar user={user} avatar={avatar} />
+
+      <div>
+        <VerifyMail user={user} />
+      </div>
+
+      {/* footer */}
+      <Footer />
     </div>
   );
 };
